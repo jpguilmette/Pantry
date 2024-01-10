@@ -1,0 +1,81 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:vue/vue3-essential",
+        "prettier"
+    ],
+    "overrides": [
+        {
+            "env": {
+                "node": true
+            },
+            "files": [".eslintrc.{js,cjs}"],
+            "parserOptions": {
+                "sourceType": "script"
+            }
+        }
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "parser": "@typescript-eslint/parser",
+        "sourceType": "module"
+    },
+    "plugins": ["import", "@typescript-eslint", "vue", "prettier"],
+    "rules": {
+        "prefer-object-spread": "error",
+        "no-empty": "off",
+        "func-style": "error",
+        "no-nested-ternary": "error",
+        "no-var": "error",
+        "semi": "error",
+        "semi-spacing": "error",
+        "eqeqeq": "error",
+        "complexity": ["error", 23],
+        "@typescript-eslint/no-unused-vars": "off",
+        "no-console": "error",
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "selector": "interface",
+                "format": ["PascalCase"],
+                "custom": {
+                    "regex": "^I[A-Z]",
+                    "match": false
+                }
+            }
+        ],
+        "@typescript-eslint/array-type": "error",
+        "@typescript-eslint/explicit-member-accessibility": [
+            "error",
+            {
+                "accessibility": "explicit"
+            }
+        ],
+        "@typescript-eslint/member-ordering": "warn",
+        "@typescript-eslint/prefer-for-of": "error",
+        "@typescript-eslint/unified-signatures": "error",
+        "@typescript-eslint/no-empty-function": [
+            "error",
+            {
+                "allow": [
+                    "protected-constructors",
+                    "private-constructors",
+                    "decoratedFunctions"
+                ]
+            }
+        ],
+        "import/no-deprecated": "warn",
+        "import/no-nodejs-modules": "error",
+        "import/no-cycle": "error",
+        "import/no-relative-packages": "error",
+        "import/no-self-import": "error",
+        "import/dynamic-import-chunkname": "error",
+        "import/no-useless-path-segments": "error",
+        "import/no-mutable-exports": "error"
+    }
+}
