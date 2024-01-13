@@ -13,6 +13,10 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+input {
+    color: #011a27;
+}
+
 a {
     font-weight: 500;
     color: #549829;
@@ -42,17 +46,16 @@ h2 {
 button {
     color: #fff;
     border-radius: 8px;
-    border: 2px solid transparent;
     padding: 1rem;
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
     background-color: #1995ad;
     cursor: pointer;
-    transition: border-color 0.25s;
+    transition: background-color 0.25s;
 }
 button:hover {
-    border-color: #093d47;
+    background-color: #093d47;
 }
 button:focus,
 button:focus-visible {

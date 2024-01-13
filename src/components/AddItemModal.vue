@@ -34,19 +34,13 @@
                             <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                                 <div class="sm:flex sm:items-start">
                                     <div
-                                        class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left"
+                                        class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full"
                                     >
-                                        <DialogTitle
-                                            as="h2"
-                                            class="text-base font-semibold leading-2 text-gray-900"
-                                        >
+                                        <DialogTitle as="h2" class="text-2xl">
                                             Ajouter un élément à la liste
                                         </DialogTitle>
                                         <div class="mt-4 sm:col-span-4">
-                                            <label
-                                                for="name"
-                                                class="block text-sm font-medium leading-6 text-gray-900"
-                                            >
+                                            <label for="name" class="block">
                                                 Nom
                                                 <sup
                                                     class="text-red-600 font-large"
@@ -62,7 +56,7 @@
                                                     autocomplete="name"
                                                     required="true"
                                                     v-model="name"
-                                                    class="block sm:w-full w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    class="block sm:w-full w-96 rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-[#1995ad] placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#093d47] sm:text-sm sm:leading-6"
                                                     :class="{
                                                         'ring-red-600':
                                                             nameFieldError,
@@ -77,10 +71,7 @@
                                         <div
                                             class="mt-4 sm:col-span-4 max-w-16"
                                         >
-                                            <label
-                                                for="quantity"
-                                                class="block text-sm font-medium leading-6 text-gray-900"
-                                            >
+                                            <label for="quantity" class="block">
                                                 Quantité
                                             </label>
                                             <div class="mt-2">
@@ -91,7 +82,7 @@
                                                     min="0"
                                                     autocomplete="quantity"
                                                     v-model="quantity"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-[#1995ad] placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#093d47] sm:text-sm sm:leading-6"
                                                     :class="{
                                                         'ring-red-600':
                                                             quantityFieldError,
@@ -110,14 +101,12 @@
                                 class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6"
                             >
                                 <button
-                                    type="button"
-                                    class="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+                                    class="inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
                                     @click="onSave"
                                 >
                                     Enregistrer
                                 </button>
                                 <button
-                                    type="button"
                                     class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                                     @click="onCancel"
                                     ref="cancelButtonRef"

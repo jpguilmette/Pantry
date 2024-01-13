@@ -23,25 +23,26 @@ export interface State {
 
 export const usePantryStore = defineStore('pantry', () => {
     const items = ref<QueryDocumentSnapshot<DocumentData, DocumentData>[]>();
-    const charging = ref(false);
+    const charging = ref(true);
 
     const pantryItems = computed(
         () =>
-            items.value?.map((item) => {
-                const data = item.data();
-                return {
-                    id: item.id,
-                    name: data.name,
-                    quantity: data.quantity,
-                    completed: data.completed,
-                    dateCreated: data.dateCreated,
-                    dateCompleted: data.dateCompleted,
-                } as Item;
-            })
+            items.value
+                ?.map((item) => {
+                    const data = item.data();
+                    return {
+                        id: item.id,
+                        name: data.name,
+                        quantity: data.quantity,
+                        completed: data.completed,
+                        dateCreated: data.dateCreated,
+                        dateCompleted: data.dateCompleted,
+                    } as Item;
+                })
+                .sort((a, b) => a.name.localeCompare(b.name))
     );
 
     const getItems = async () => {
-        charging.value = true;
         const querySnapshot: QuerySnapshot = await getDocs(
             query(
                 collection(firestore, 'items'),
@@ -49,7 +50,6 @@ export const usePantryStore = defineStore('pantry', () => {
             )
         );
         items.value = querySnapshot.docs;
-        charging.value = false;
     };
 
     const addItem = async (item: Item) => {

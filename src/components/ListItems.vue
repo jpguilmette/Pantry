@@ -1,34 +1,42 @@
 <template>
-    <!-- {{ props.items }} -->
-    <!-- <ul class="list-item"> -->
-    <TransitionGroup name="list" tag="ul" class="list-item">
-        <template v-if="props.items.length > 0">
-            <li
-                class="list-item__item"
-                v-for="item in props.items"
-                :key="item.id"
-            >
-                <div class="list-item__item-detail">
-                    {{ item.name }}
-                    {{ item.quantity ? `(${item.quantity})` : '' }}
-                </div>
-                <button
-                    class="list-item__complete"
-                    :class="{ 'list-item__button--completed': item.completed }"
-                    @click="emits('completed', item)"
-                >
-                    <div
-                        class="list-item__complete-svg"
-                        v-html="svgCheck"
-                    ></div>
-                </button>
-            </li>
+    <Transition name="charging">
+        <template v-if="props.charging">
+            <div class="list-item__item">
+                <div class="list-item__item-detail">Chargement...</div>
+            </div>
         </template>
         <template v-else>
-            <li class="list-item__empty">Liste vide</li>
+            <TransitionGroup name="list" tag="ul" class="list-item">
+                <template v-if="props.items.length > 0">
+                    <li
+                        class="list-item__item"
+                        v-for="item in props.items"
+                        :key="item.id"
+                    >
+                        <div class="list-item__item-detail">
+                            {{ item.name }}
+                            {{ item.quantity ? `(${item.quantity})` : '' }}
+                        </div>
+                        <button
+                            class="list-item__complete"
+                            :class="{
+                                'list-item__button--completed': item.completed,
+                            }"
+                            @click="emits('completed', item)"
+                        >
+                            <div
+                                class="list-item__complete-svg"
+                                v-html="svgCheck"
+                            ></div>
+                        </button>
+                    </li>
+                </template>
+                <template v-else>
+                    <li class="list-item__empty">Liste vide</li>
+                </template>
+            </TransitionGroup>
         </template>
-    </TransitionGroup>
-    <!-- </ul> -->
+    </Transition>
 </template>
 
 <script lang="ts" setup>
@@ -38,9 +46,11 @@ import { Item } from '../types/item';
 const props = withDefaults(
     defineProps<{
         items: Item[];
+        charging: boolean;
     }>(),
     {
         items: () => [],
+        charging: false,
     }
 );
 
@@ -50,10 +60,21 @@ const emits = defineEmits<{
 </script>
 
 <style lang="scss" scoped>
+.charging-enter-active,
+.charging-leave-active {
+    transition: all 300ms ease;
+}
+
+.charging-enter-from,
+.charging-leave-to {
+    opacity: 0;
+}
+
 .list-enter-active,
 .list-leave-active {
-    transition: all 0.5s ease;
+    transition: all 300ms ease;
 }
+
 .list-enter-from,
 .list-leave-to {
     opacity: 0;
@@ -65,7 +86,7 @@ const emits = defineEmits<{
     margin: 1rem 0;
     background-color: #bcbabe;
     font-size: 1.3rem;
-    transition: all 0.5s ease;
+    transition: all 300ms ease;
 
     &__item {
         display: flex;
@@ -74,6 +95,16 @@ const emits = defineEmits<{
         padding: 0.5rem 1rem;
         margin: 0;
         background-color: #f1f1f2;
+    }
+
+    &-enter-active,
+    &-leave-active {
+        transition: opacity 300ms ease;
+    }
+
+    &-enter-from,
+    &-leave-to {
+        opacity: 0;
     }
 
     &__item:nth-child(even) {
@@ -103,9 +134,18 @@ const emits = defineEmits<{
     }
 
     &__complete-svg {
-        width: 3rem;
-        height: 3rem;
+        position: relative;
+        top: 3px;
+        left: 3px;
+        width: 2rem;
+        height: 2rem;
         color: #093d47;
+        opacity: 0;
+        transition: opacity 300ms;
+
+        &:hover {
+            opacity: 1;
+        }
     }
 
     &__empty {

@@ -4,12 +4,16 @@
             <h1>Liste d'achat</h1>
             <AddItemButton @add-item="onAddItem" />
         </header>
-        <ListItems :items="store.pantryItems" @completed="onCompleted" />
+        <ListItems
+            :charging="store.charging"
+            :items="store.pantryItems"
+            @completed="onCompleted"
+        />
         <footer>
             <CompleteAllItemsButton @complete-all-items="completeAllItems" />
         </footer>
         <AddItemModal v-model:open="openAddItemModal" @save="addItem" />
-        <!-- <button @click="store.clearAllItems">Clear all items</button> -->
+        <!-- <button @click="store.clearAllItems">Delete all items in Firestore</button> -->
     </div>
     <div class="background"></div>
 </template>
@@ -27,7 +31,9 @@ const store = usePantryStore();
 const openAddItemModal = ref(false);
 
 onMounted(async () => {
+    store.charging = true;
     await store.getItems();
+    store.charging = false;
 });
 
 const onAddItem = () => {
